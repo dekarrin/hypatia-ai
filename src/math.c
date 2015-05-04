@@ -23,3 +23,34 @@
  */
 
 #include "math.h"
+#include <stdlib.h>
+#include <math.h>
+
+vector_t *hyp_math_create_vector(size_t dim)
+{
+	vector_t *vec = malloc(sizeof(vector_t));
+	vec->dim = dim;
+	vec->values = malloc(sizeof(double) * dim);
+	return vec;
+}
+
+void hyp_math_free_vector_t(vector_t *vec)
+{
+	free(vec->values);
+	free(vec);
+}
+
+double hyp_math_dot(vector_t const *vec1, vector_t const *vec2)
+{
+	size_t dim = fmax(vec1->dim, vec2->dim);
+	double sum = 0;
+	for (size_t i = 0; i < dim; i++)
+	{
+		double v1, v2;
+		v1 = (vec1->dim > i ? vec1->values[i] : 0);
+		v2 = (vec2->dim > i ? vec2->values[i] : 0);
+		sum += v1 * v2;
+	}
+	return sum;
+}
+

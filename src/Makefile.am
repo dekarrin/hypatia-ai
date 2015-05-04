@@ -12,6 +12,6 @@ libmath_la_SOURCES=math.c
 
 # define all executables
 bin_PROGRAMS=testmath
-testmath_SOURCES=testmath.cpp
+testmath_SOURCES=testmath.c
 # libs to link testmath with, if it were different than common:
 # testmath_LDADD=libsomelib.la ${LDADD} -lexternallib

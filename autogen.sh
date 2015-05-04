@@ -42,6 +42,7 @@ check_program ()
 	done
 	if test -z "$working_program"
 	then
+		echo
 		echo "Error: could not find a valid program in ("$@")"
 	fi
 }
@@ -50,7 +51,7 @@ run_program ()
 {
 	echo
 	echo "Running $@"
-	$@ || { echo "Error: $1 failed."; exit 1; }
+	$@ || { echo; echo "Error: $1 failed."; exit 1; }
 }
 
 if test "x$1" = "x-f" -o "x$1" = "x--force"
@@ -67,6 +68,7 @@ if test "$terminate" = 1
 then
 	if test "x$force" = "x1"
 	then
+		echo
 		echo -n "Could not find tr on this system; program versioning "
 		echo "cannot be automated."
 		echo -n "Replace the second argument to AC_INIT in "
@@ -97,6 +99,7 @@ terminate=$(num_max $status $terminate)
 
 if test "$terminate" != 0
 then
+	echo
 	echo "Program check failed."
 	exit 1
 fi

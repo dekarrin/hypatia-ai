@@ -3,6 +3,7 @@
 *.obj
 *.slo
 *.lo
+src/testmath
 
 # ignore all libs
 *.so

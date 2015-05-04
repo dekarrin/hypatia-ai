@@ -50,15 +50,9 @@ int main(int argc, char const **argv)
 	double d1_4 = hyp_math_dot(v1, v4);
 	double d4_4 = hyp_math_dot(v4, v4);
 
-	// proper output should be:
-	// 1
-	// 3
-	// -35
-	// 0
-	// 0
-	printf("[1, 1, 1] * [3, -2] =    %f\n", d1_2);
-	printf("[1, 1, 1] * [1, 1, 1] =  %f\n", d1_1);
-	printf("[3, -2] * [-5, -4] =     %f\n", d2_3);
-	printf("[1, 1, 1] * [] =         %f\n", d1_4);
-	printf("[] * [] =                %f\n", d4_4);
+	printf("[1, 1, 1] * [3, -2] =    %.1f\n", d1_2);
+	printf("[1, 1, 1] * [1, 1, 1] =  %.1f\n", d1_1);
+	printf("[3, -2] * [-5, -4] =     %.1f\n", d2_3);
+	printf("[1, 1, 1] * [] =         %.1f\n", d1_4);
+	printf("[] * [] =                %.1f\n", d4_4);
 }

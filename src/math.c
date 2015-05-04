@@ -46,7 +46,7 @@ vector_t *hyp_math_create_vector(size_t dim)
 	return vec;
 }
 
-void hyp_math_free_vector_t(vector_t *vec)
+void hyp_math_free_vector(vector_t *vec)
 {
 	free(vec->values);
 	free(vec);

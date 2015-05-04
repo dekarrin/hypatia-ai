@@ -14,3 +14,7 @@
 
 # ignore vim swap files
 .*.swp
+
+# ignore autoscan files
+autoscan.log
+configure.scan

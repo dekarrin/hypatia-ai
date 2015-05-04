@@ -37,3 +37,12 @@ ltmain.sh
 m4/
 missing
 src/Makefile.in
+
+# ignore files created by configure
+Makefile
+config.h
+config.log
+config.status
+libtool
+.deps/
+stamp-h1

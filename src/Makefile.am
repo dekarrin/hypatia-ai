@@ -1,5 +1,5 @@
 # all flags used by the c compiler
-AM_CFLAGS=-Wall
+AM_CFLAGS=-Wall -std=c99
 # libraries common to all executables
 LDADD=libmath.la
 # linker flags common to all executables?

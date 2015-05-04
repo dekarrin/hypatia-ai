@@ -24,7 +24,19 @@
 
 #include "math.h"
 #include <stdlib.h>
-#include <math.h>
+
+static double max(double x, double y);
+static double min(double x, double y);
+
+static double max(double x, double y)
+{
+	return (x > y ? x : y);
+}
+
+static double min(double x, double y)
+{
+	return (x < y ? x : y);
+}
 
 vector_t *hyp_math_create_vector(size_t dim)
 {
@@ -42,7 +54,7 @@ void hyp_math_free_vector_t(vector_t *vec)
 
 double hyp_math_dot(vector_t const *vec1, vector_t const *vec2)
 {
-	size_t dim = fmax(vec1->dim, vec2->dim);
+	size_t dim = max(vec1->dim, vec2->dim);
 	double sum = 0;
 	for (size_t i = 0; i < dim; i++)
 	{

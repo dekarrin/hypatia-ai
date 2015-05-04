@@ -28,7 +28,7 @@
 
 int main(int argc, char const **argv)
 {
-	vector_t *v1, *v2, *v3;
+	vector_t *v1, *v2, *v3, *v4;
 	v1 = hyp_math_create_vector(3);
 	v2 = hyp_math_create_vector(2);
 	v3 = hyp_math_create_vector(2);

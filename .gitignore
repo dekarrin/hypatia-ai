@@ -1,0 +1,16 @@
+# ignore all binaries
+*.o
+*.obj
+*.slo
+*.lo
+
+# ignore all libs
+*.so
+*.la
+*.a
+
+# ignore all execs
+*.out
+
+# ignore vim swap files
+.*.swp

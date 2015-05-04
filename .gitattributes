@@ -1,0 +1,6 @@
+# set all files to use LF by default
+* text=auto
+
+# in particular, c source is text
+*.c text
+*.h text

@@ -22,8 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __HYPATIA_MATH_H
-#define __HYPATIA_MATH_H
+#ifndef HYPATIA_MATH_H
+#define HYPATIA_MATH_H
 
 #include <stddef.h>
 

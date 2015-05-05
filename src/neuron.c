@@ -32,7 +32,7 @@
 
 neuron_t *hyp_neuron_create(size_t inputs, double learning_rate)
 {
-	neuron_t *nrn = alloc(sizeof(neuron_t));
+	neuron_t *nrn = malloc(sizeof(neuron_t));
 	nrn->input_count = inputs;
 	nrn->weights = hyp_math_create_vector(inputs);
 	nrn->bias = 0.0;
@@ -46,7 +46,7 @@ neuron_t *hyp_neuron_create_perceptron(size_t inputs, double learning_rate)
 {
 	neuron_t *pcpt = hyp_neuron_create(inputs, learning_rate);
 	pcpt->combiner = &hyp_comb_linear;
-	pcpt->activation = alloc(sizeof(hyp_act_t));
+	pcpt->activation = malloc(sizeof(hyp_act_t));
 	pcpt->activation->func = &hyp_act_threshold;
 	pcpt->activation->params = NULL;
 	return pcpt;
@@ -79,7 +79,7 @@ void hyp_neuron_init(neuron_t *n)
 	for (size_t i = 0; i < n->input_count; i++)
 	{
 		n->weights->values[i] =
-		  rand_range(-INITIAL_WEIGHT_RANGE, INITIAL_WEIGHT_RANGE)
+		  rand_range(-INITIAL_WEIGHT_RANGE, INITIAL_WEIGHT_RANGE);
 	}
 	n->bias = rand_range(-INITIAL_WEIGHT_RANGE, INITIAL_WEIGHT_RANGE);
 }

@@ -62,7 +62,7 @@
 
 // A pointer to a raw activation function; that is, one without associated
 // parameters.
-typedef void (*hyp_act_raw_ptr)(double input, void const *const *params);
+typedef double (*hyp_act_raw_ptr)(double input, void const *const *params);
 
 // A composite struct that contains both an activation function pointer and its
 // additional parameters.

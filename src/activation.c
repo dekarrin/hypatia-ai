@@ -34,7 +34,6 @@
 
 #include "activation.h"
 
-#include <stddef.h>
 #include <math.h>
 
 double hyp_act_threshold(double input, void const *const *params)

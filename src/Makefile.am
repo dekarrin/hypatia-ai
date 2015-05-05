@@ -10,6 +10,7 @@ AM_LDFLAGS=-static
 noinst_LTLIBRARIES=libmath.la libactivation.la libneuron.la libutil.la libcombiner.la
 libmath_la_SOURCES=math.c
 libactivation_la_SOURCES=activation.c
+libactivation_la_LIBADD=-lm
 libneuron_la_SOURCES=neuron.c
 libutil_la_SOURCES=util.c
 libcombiner_la_SOURCES=combiner.c

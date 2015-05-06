@@ -1,5 +1,5 @@
 /*******************************************************************************
- * This is a test of the util module of the Hypatia AI system.
+ * This is a test of the combiner module of the Hypatia AI system.
  * Copyright (C) 2015  Rebecca Nelson
  *
  * To contact by email, send to username dekarrin on the domain outlook.com.
@@ -22,23 +22,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "util.h"
-
-#include <stdlib.h>
-#include <stdio.h>
+#include "combiner.h"
 
 int main(int argc, char const **argv)
 {
-	srand(4);
-	double a1 = rand_range(-1, 1);
-	double a2 = rand_range(0, 1);
-	double a3 = rand_range(-3, -5);
-	double a4 = rand_range(31, 35);
-
-	printf("%.3f\n", a1);
-	printf("%.3f\n", a2);
-	printf("%.3f\n", a3);
-	printf("%.3f\n", a4);
-
 	return 0;
 }

@@ -25,6 +25,6 @@ Testing
 -------
 From source:
 ./autogen.sh
-./configure --CPPFLAGS=-DDEBUG --CFLAGS="-g -O0"
+./configure CPPFLAGS=-DDEBUG CFLAGS="-g -O0"
 make
 make check

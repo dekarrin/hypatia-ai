@@ -8,12 +8,12 @@ AM_LDFLAGS=-static
 
 # define all libraries and their implementation files
 noinst_LTLIBRARIES=libmath.la libactivation.la libneuron.la libutil.la libcombiner.la
-libmath_la_SOURCES=math.c
-libactivation_la_SOURCES=activation.c
+libmath_la_SOURCES=math.c math.h
+libactivation_la_SOURCES=activation.c activation.h
 libactivation_la_LIBADD=-lm
-libneuron_la_SOURCES=neuron.c
-libutil_la_SOURCES=util.c
-libcombiner_la_SOURCES=combiner.c
+libneuron_la_SOURCES=neuron.c neuron.h
+libutil_la_SOURCES=util.c util.h
+libcombiner_la_SOURCES=combiner.c combiner.h
 
 # define all executables
 bin_PROGRAMS=testmath

@@ -44,7 +44,7 @@ int main(int argc, char const **argv)
 
 
 	double slope = 1.5;
-	double *slopeptr = &slope;
+	void *slopeptr = &slope;
 	// should be 0.5
 	double log_0 = hyp_act_logistic(0.0, NULL);
 	// should be ~0.999972

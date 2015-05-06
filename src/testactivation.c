@@ -44,11 +44,42 @@ int main(int argc, char const **argv)
 
 
 	double slope = 1.5;
-	double slopeptr
-	// should be 
-	double log_0 = hyp_act_log(0, NULL);
+	double *slopeptr = &slope;
+	// should be 0.5
+	double log_0 = hyp_act_logistic(0.0, NULL);
+	// should be ~0.999972
+	double log_7 = hyp_act_logistic(7.0, &slopeptr);
+	// should be ~0.0758581
+	double log_n2_5 = hyp_act_logistic(-2.5, NULL);
 
-	double log_7 = hyp_act_log(7, &&slo
+	// should be 0
+	double tanh_0 = hyp_act_tanh(0.0, NULL);
+	// should be ~0.9999999999
+	double tanh_7 = hyp_act_tanh(7.0, &slopeptr);
+	// should be ~-0.986614
+	double tanh_n2_5 = hyp_act_tanh(-2.5, NULL);
+
+	printf("Input : Output\n");
+	printf("\n");
+	printf("Threshold Function:\n");
+	printf(" 0 :  %.6f\n", thresh_0);
+	printf(" 1 :  %.6f\n", thresh_1);
+	printf("-1 :  %.6f\n", thresh_n1);
+	printf("\n");
+	printf("Signum Function:\n");
+	printf(" 0 :  %.6f\n", signum_0);
+	printf(" 1 :  %.6f\n", signum_1);
+	printf("-1 :  %.6f\n", signum_n1);
+	printf("\n");
+	printf("Logistic Function:\n");
+	printf(" 0.0, v = 1.0 :  %.6f\n", log_0);
+	printf(" 7.0, v = 1.5 :  %.6f\n", log_7);
+	printf("-2.5, v = 1.0 :  %.6f\n", log_n2_5);
+	printf("\n");
+	printf("Tanh Function:\n");
+	printf(" 0.0, v = 1.0 :  %.6f\n", tanh_0);
+	printf(" 7.0, v = 1.5 :  %.6f\n", tanh_7);
+	printf("-2.5, v = 1.0 :  %.6f\n", tanh_n2_5);
 
 	return 0;
 }

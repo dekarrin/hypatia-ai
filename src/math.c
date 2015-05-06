@@ -23,19 +23,13 @@
  */
 
 #include "math.h"
+
 #include <stdlib.h>
+#include <math.h>
 
-static double max(double x, double y);
-static double min(double x, double y);
-
-static double max(double x, double y)
+static double max(double x1, double x2)
 {
-	return (x > y ? x : y);
-}
-
-static double min(double x, double y)
-{
-	return (x < y ? x : y);
+	return (x1 > x2 ? x1 : x2);
 }
 
 vector_t *hyp_math_create_vector(size_t dim)

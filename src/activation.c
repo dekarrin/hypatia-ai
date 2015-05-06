@@ -62,7 +62,7 @@ double hyp_act_signum(double input, void const *const *params)
 
 double hyp_act_logistic(double input, void const *const *params)
 {
-	double steepness = 1;
+	double steepness = 1.0;
 	if (params != NULL)
 	{
 		double const *ptr1 = (double const *)params[0];
@@ -77,7 +77,7 @@ double hyp_act_logistic(double input, void const *const *params)
 
 double hyp_act_tanh(double input, void const *const *params)
 {
-	double steepness = 1;
+	double steepness = 1.0;
 	if (params != NULL)
 	{
 		double const *ptr1 = (double const *)params[0];

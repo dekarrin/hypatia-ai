@@ -1,7 +1,7 @@
 # all flags used by the c compiler
-AM_CFLAGS=-Wall -std=c99
+AM_CFLAGS=-Wall -Werror -std=c99
 # libraries common to all executables
-LDADD=libmath.la libactivation.la libneuron.la libutil.la libcombiner.la
+#LDADD=libmath.la libactivation.la libneuron.la libutil.la libcombiner.la
 # linker flags common to all executables?
 AM_LDFLAGS=-static
 
@@ -9,6 +9,7 @@ AM_LDFLAGS=-static
 # define all libraries and their implementation files
 noinst_LTLIBRARIES=libmath.la libactivation.la libneuron.la libutil.la libcombiner.la
 libmath_la_SOURCES=math.c math.h
+libmath_la_LIBADD=-lm
 libactivation_la_SOURCES=activation.c activation.h
 libactivation_la_LIBADD=-lm
 libneuron_la_SOURCES=neuron.c neuron.h
@@ -16,7 +17,10 @@ libutil_la_SOURCES=util.c util.h
 libcombiner_la_SOURCES=combiner.c combiner.h
 
 # define all executables
-bin_PROGRAMS=testmath
+bin_PROGRAMS=testmath testactivation
 testmath_SOURCES=testmath.c
+testmath_LDADD=libmath.la
+testactivation_SOURCES=testactivation.c
+testactivation_LDADD=libactivation.la
 # libs to link testmath with, if it were different than common:
 # testmath_LDADD=libsomelib.la ${LDADD} -lexternallib

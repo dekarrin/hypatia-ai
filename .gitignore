@@ -3,7 +3,9 @@
 *.obj
 *.slo
 *.lo
-src/testmath
+src/testvector
+src/testactivation
+src/testutil
 
 # ignore all libs
 *.so

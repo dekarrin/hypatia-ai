@@ -36,7 +36,7 @@
 
 #include <math.h>
 
-double hyp_act_threshold(double input, void const *const *params)
+double hyp_act_threshold(double input, void **params)
 {
 	double out = 0;
 	if (input >= 0)
@@ -46,7 +46,7 @@ double hyp_act_threshold(double input, void const *const *params)
 	return out;
 }
 
-double hyp_act_signum(double input, void const *const *params)
+double hyp_act_signum(double input, void **params)
 {
 	double out = 0;
 	if (input > 0)
@@ -60,7 +60,7 @@ double hyp_act_signum(double input, void const *const *params)
 	return out;
 }
 
-double hyp_act_logistic(double input, void const *const *params)
+double hyp_act_logistic(double input, void **params)
 {
 	double steepness = 1.0;
 	if (params != NULL)
@@ -75,7 +75,7 @@ double hyp_act_logistic(double input, void const *const *params)
 	return out;
 }
 
-double hyp_act_tanh(double input, void const *const *params)
+double hyp_act_tanh(double input, void **params)
 {
 	double steepness = 1.0;
 	if (params != NULL)

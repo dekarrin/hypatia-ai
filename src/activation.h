@@ -62,7 +62,7 @@
 
 // A pointer to a raw activation function; that is, one without associated
 // parameters.
-typedef double (*hyp_act_raw_ptr)(double input, void const *const *params);
+typedef double (*hyp_act_raw_ptr)(double input, void **params);
 
 // A composite struct that contains both an activation function pointer and its
 // additional parameters.
@@ -81,7 +81,7 @@ typedef struct hyp_act
  *
  * This function does not accept additional parameters.
  */
-double hyp_act_threshold(double input, void const *const *params);
+double hyp_act_threshold(double input, void **params);
 
 /**
  * Returns the sign of the input. If input is less than 0, outputs -1. If input
@@ -91,7 +91,7 @@ double hyp_act_threshold(double input, void const *const *params);
  *
  * This function does not accept additional parameters.
  */
-double hyp_act_signum(double input, void const *const *params);
+double hyp_act_signum(double input, void **params);
 
 /**
  * A sigmoid function that follows the logistic curve.
@@ -101,7 +101,7 @@ double hyp_act_signum(double input, void const *const *params);
  * This function accepts the following additional parameters:
  * [0] - k, the steepness of the curve (1 by default)
  */
-double hyp_act_logistic(double input, void const *const *params);
+double hyp_act_logistic(double input, void **params);
 
 /**
  * A sigmoid function similar to the logistic curve but extended such that
@@ -112,6 +112,6 @@ double hyp_act_logistic(double input, void const *const *params);
  * This function accepts the following additional parameters:
  * [0] k, the steepness of the curve (1 by default)
  */
-double hyp_act_tanh(double input, void const *const *params);
+double hyp_act_tanh(double input, void **params);
 
 #endif

@@ -32,6 +32,6 @@ double rand_range(double low, double high)
 	double range = high - low;
 	double root = ((double) rand()) / RAND_MAX;
 	double expanded = root * range;
-	double shifted = root + low;
+	double shifted = expanded + low;
 	return shifted;
 }

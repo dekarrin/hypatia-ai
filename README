@@ -12,11 +12,19 @@ In order to run testing, valgrind is required.
 
 Compiling
 ---------
+From source:
+./autogen.sh
+./configure
+make
+
+In a distribution:
 ./configure
 make
 
 Testing
 -------
+From source:
+./autogen.sh
 ./configure --CPPFLAGS="-DDEBUG" --CFLAGS="-g -O0"
 make
 make check

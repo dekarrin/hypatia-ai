@@ -2,3 +2,21 @@ Rebecca's Exploration of Neural Networks
 ========================================
 
 This is my messing around with neural networks in C. Nothing too fancy.
+
+Requirements
+------------
+To run the system, you will need the build essentials for your platform.
+Autotools is required, as is gcc (or compatible compiler).
+
+In order to run testing, valgrind is required.
+
+Compiling
+---------
+./configure
+make
+
+Testing
+-------
+./configure --CPPFLAGS="-DDEBUG" --CFLAGS="-g -O0"
+make
+make check

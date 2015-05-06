@@ -28,7 +28,7 @@
 
 #include "activation.h"
 #include "combiner.h"
-#include "math.h"
+#include "vector.h"
 
 #include <stddef.h>
 

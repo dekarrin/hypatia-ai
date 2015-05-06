@@ -1,5 +1,5 @@
 /*******************************************************************************
- * This is implementation of the math module of the Hypatia AI system.
+ * This is implementation of the vector module of the Hypatia AI system.
  * Copyright (C) 2015  Rebecca Nelson
  *
  * To contact by email, send to username dekarrin on the domain outlook.com.
@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "math.h"
+#include "vector.h"
 
 #include <stdlib.h>
 #include <math.h>

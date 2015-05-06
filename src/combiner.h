@@ -36,7 +36,7 @@
  * produces a single output value, which is returned as a double.
  */
 
-#include "math.h"
+#include "vector.h"
 
 // pointer to a combiner function.
 typedef double (*hyp_comb_ptr)(vector_t const *inputs, vector_t const *weights);

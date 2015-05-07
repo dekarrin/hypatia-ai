@@ -12,6 +12,7 @@ libvector_la_LIBADD=-lm
 libactivation_la_SOURCES=activation.c activation.h
 libactivation_la_LIBADD=-lm
 libneuron_la_SOURCES=neuron.c neuron.h
+libneuron_la_LIBADD=libutil.la libcombiner.la libactivation.la libvector.la
 libutil_la_SOURCES=util.c util.h
 libcombiner_la_SOURCES=combiner.c combiner.h
 
@@ -26,6 +27,6 @@ testutil_LDADD=libutil.la
 testcombiner_SOURCES=testcombiner.c
 testcombiner_LDADD=libvector.la libcombiner.la
 testneuron_SOURCES=testneuron.c
-testneuron_LDADD=libneuron.la libactivation.la libvector.la
+testneuron_LDADD=libneuron.la
 # libs to link testmath with, if it were different than common:
 # testmath_LDADD=libsomelib.la ${LDADD} -lexternallib

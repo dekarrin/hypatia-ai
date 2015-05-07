@@ -109,8 +109,8 @@ void hyp_neuron_init(neuron_t *n);
  * TODO: This only works for perceptrons. Training algorithms should be
  * generalized.
  */
-void hyp_neuron_train(neuron_t *n, vector_t const *const *inputs,
-  double const *expected, size_t size);
+void hyp_neuron_train(neuron_t *n, vector_t **inputs, double const *expected,
+  size_t size);
 
 /**
  * Executes an input on a neuron and returns the result.

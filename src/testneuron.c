@@ -79,22 +79,23 @@ int main(int argc, char const **argv)
 	printf("Initialization:\n");
 	for (size_t i = 0; i < pcpt->input_count; i++)
 	{
-		printf("w%02d: %.4f\n", pcpt->weights->values[i]);
+		printf("w%02d: %.4f\n", i, pcpt->weights->values[i]);
 	}
 	printf("bias: %.4f\n", pcpt->bias);
 	printf("---------------------------\n");
 	// now train the neuron
-	int iter = 0;
+	int rep = 0;
 	do
 	{
-		hyp_neuron_train(n, inputs, outputs, NAND_TRAINING_SIZE);
-		printf("Iteration #%d:\n", iter + 1);
+		hyp_neuron_train(pcpt, inputs, outputs, NAND_TRAINING_SIZE);
+		printf("Iteration #%d:\n", rep + 1);
 		for (size_t i = 0; i < pcpt->input_count; i++)
 		{
-			printf("w%02d: %.4f\n", pcpt->weights->values[i]);
+			printf("w%02d: %.4f\n", i, pcpt->weights->values[i]);
 		}
 		printf("b: %.4f\n", pcpt->bias);
 		printf("---------------------------\n");
+		rep += 1;
 	}
 	while(rep < 2);
 
@@ -113,7 +114,7 @@ int main(int argc, char const **argv)
 	}
 	free(inputs);
 	free(outputs);
-	hyp_neuron_free_perceptron(pcpt);
+	hyp_neuron_free(pcpt);
 
 	// output results
 	printf("NAND Results\n");

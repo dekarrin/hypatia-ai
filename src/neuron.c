@@ -92,8 +92,8 @@ double hyp_neuron_fire(neuron_t const *n, vector_t const *inputs)
 	return result;
 }
 
-void hyp_neuron_train(neuron_t *n, vector_t const *const *inputs,
-  double const *expected, size_t size)
+void hyp_neuron_train(neuron_t *n, vector_t **inputs, double const *expected,
+  size_t size)
 {
 	for (size_t i = 0; i < size; i++)
 	{

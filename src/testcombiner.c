@@ -24,7 +24,26 @@
 
 #include "combiner.h"
 
+#include <stdio.h>
+
 int main(int argc, char const **argv)
 {
+	vector_t *inputs = hyp_math_create_vector(3);
+	inputs->values[0] = 12;
+	inputs->values[1] = 2.42;
+	inputs->values[2] = -3.92;
+
+	vector_t *weights = hyp_math_create_vector(3);
+	weights->values[0] = 0.3;
+	weights->values[1] = 0.3452;
+	weights->values[2] = 0.5;
+
+	double lin_out = hyp_comb_linear(inputs, weights);
+
+	printf("%.5f\n", lin_out);
+
+	hyp_math_free_vector(inputs);
+	hyp_math_free_vector(weights);
+
 	return 0;
 }

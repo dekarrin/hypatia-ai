@@ -6,6 +6,7 @@
 src/testvector
 src/testactivation
 src/testutil
+src/testcombiner
 
 # ignore all libs
 *.so

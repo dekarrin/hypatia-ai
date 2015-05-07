@@ -92,6 +92,8 @@ double hyp_neuron_fire(neuron_t const *n, vector_t const *inputs)
 	return result;
 }
 
+#include <stdio.h>
+
 void hyp_neuron_train(neuron_t *n, vector_t **inputs, double const *expected,
   size_t size)
 {
@@ -105,7 +107,9 @@ void hyp_neuron_train(neuron_t *n, vector_t **inputs, double const *expected,
 		for (size_t j = 0; j < n->weights->dim; j++)
 		{
 			weight_vals[j] += n->learn_rate * err * in->values[j];
+			printf("%d - ERR: %.5f, VAL: %.5f ADJ\n", j, err, in->values[j]);
 		}
+		n->bias += n->learn_rate * err;
 	}
 }
 

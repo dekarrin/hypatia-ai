@@ -29,10 +29,10 @@
 int main(int argc, char const **argv)
 {
 	vector_t *v1, *v2, *v3, *v4;
-	v1 = hyp_math_create_vector(3);
-	v2 = hyp_math_create_vector(2);
-	v3 = hyp_math_create_vector(2);
-	v4 = hyp_math_create_vector(0);
+	v1 = hyp_vec_create(3);
+	v2 = hyp_vec_create(2);
+	v3 = hyp_vec_create(2);
+	v4 = hyp_vec_create(0);
 
 	v1->values[0] = 1;
 	v1->values[1] = 1;
@@ -44,16 +44,16 @@ int main(int argc, char const **argv)
 	v3->values[0] = -5;
 	v3->values[1] = -4;
 
-	double d1_2 = hyp_math_dot(v1, v2);
-	double d1_1 = hyp_math_dot(v1, v1);
-	double d2_3 = hyp_math_dot(v2, v3);
-	double d1_4 = hyp_math_dot(v1, v4);
-	double d4_4 = hyp_math_dot(v4, v4);
+	double d1_2 = hyp_vec_dot(v1, v2);
+	double d1_1 = hyp_vec_dot(v1, v1);
+	double d2_3 = hyp_vec_dot(v2, v3);
+	double d1_4 = hyp_vec_dot(v1, v4);
+	double d4_4 = hyp_vec_dot(v4, v4);
 
-	hyp_math_free_vector(v1);
-	hyp_math_free_vector(v2);
-	hyp_math_free_vector(v3);
-	hyp_math_free_vector(v4);
+	hyp_vec_free(v1);
+	hyp_vec_free(v2);
+	hyp_vec_free(v3);
+	hyp_vec_free(v4);
 
 	printf("[1, 1, 1] * [3, -2] =    %.1f\n", d1_2);
 	printf("[1, 1, 1] * [1, 1, 1] =  %.1f\n", d1_1);

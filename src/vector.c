@@ -32,7 +32,7 @@ static double max(double x1, double x2)
 	return (x1 > x2 ? x1 : x2);
 }
 
-vector_t *hyp_math_create_vector(size_t dim)
+vector_t *hyp_vec_create(size_t dim)
 {
 	vector_t *vec = malloc(sizeof(vector_t));
 	vec->dim = dim;
@@ -40,13 +40,13 @@ vector_t *hyp_math_create_vector(size_t dim)
 	return vec;
 }
 
-void hyp_math_free_vector(vector_t *vec)
+void hyp_vec_free(vector_t *vec)
 {
 	free(vec->values);
 	free(vec);
 }
 
-double hyp_math_dot(vector_t const *vec1, vector_t const *vec2)
+double hyp_vec_dot(vector_t const *vec1, vector_t const *vec2)
 {
 	size_t dim = max(vec1->dim, vec2->dim);
 	double sum = 0;

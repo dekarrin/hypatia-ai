@@ -63,7 +63,7 @@ typedef struct neuron
  * Note that changing the input_count after creation will not cause reallocation
  * of the weights vector. If the weights vector's size is to be modified, it
  * should be allocated / deallocated using the appropriate functions in the
- * Hypatia math module (hyp_math_create_vector / hyp_math_free_vector).
+ * Hypatia math module (hyp_vec_create / hyp_vec_free).
  *
  * If the weights vector pointer is deallocated before the neuron_t pointer is
  * passed to hyp_neuron_free, the weights pointer must be set to NULL or be

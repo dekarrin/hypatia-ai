@@ -34,7 +34,7 @@ neuron_t *hyp_neuron_create(size_t inputs, double learning_rate)
 {
 	neuron_t *nrn = malloc(sizeof(neuron_t));
 	nrn->input_count = inputs;
-	nrn->weights = hyp_math_create_vector(inputs);
+	nrn->weights = hyp_vec_create(inputs);
 	nrn->bias = 0.0;
 	nrn->combiner = NULL;
 	nrn->activation = NULL;
@@ -69,7 +69,7 @@ void hyp_neuron_free(neuron_t *n)
 	}
 	if (n->weights != NULL)
 	{
-		hyp_math_free_vector(n->weights);
+		hyp_vec_free(n->weights);
 	}
 	free(n);
 }

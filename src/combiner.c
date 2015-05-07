@@ -26,6 +26,6 @@
 
 double hyp_comb_linear(vector_t const *inputs, vector_t const *weights)
 {
-	return hyp_math_dot(inputs, weights);
+	return hyp_vec_dot(inputs, weights);
 }
 

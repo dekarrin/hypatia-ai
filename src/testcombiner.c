@@ -28,12 +28,12 @@
 
 int main(int argc, char const **argv)
 {
-	vector_t *inputs = hyp_math_create_vector(3);
+	vector_t *inputs = hyp_vec_create(3);
 	inputs->values[0] = 12;
 	inputs->values[1] = 2.42;
 	inputs->values[2] = -3.92;
 
-	vector_t *weights = hyp_math_create_vector(3);
+	vector_t *weights = hyp_vec_create(3);
 	weights->values[0] = 0.3;
 	weights->values[1] = 0.3452;
 	weights->values[2] = 0.5;
@@ -42,8 +42,8 @@ int main(int argc, char const **argv)
 
 	printf("%.5f\n", lin_out);
 
-	hyp_math_free_vector(inputs);
-	hyp_math_free_vector(weights);
+	hyp_vec_free(inputs);
+	hyp_vec_free(weights);
 
 	return 0;
 }

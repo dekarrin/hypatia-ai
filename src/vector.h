@@ -32,8 +32,8 @@ typedef struct vector {
 	double *values;
 } vector_t;
 
-vector_t *hyp_math_create_vector(size_t dim);
-void hyp_math_free_vector(vector_t *vec);
+vector_t *hyp_vec_create(size_t dim);
+void hyp_vec_free(vector_t *vec);
 
 /*
  * If vectors difer in length, the shorter is converted to the length of the
@@ -41,6 +41,6 @@ void hyp_math_free_vector(vector_t *vec);
  * [0, 1], and vec2 is [0, 1, 2], this function will return the dot product
  * between [0, 1, 0] and [0, 1, 2].
  */
-double hyp_math_dot(vector_t const *vec1, vector_t const *vec2);
+double hyp_vec_dot(vector_t const *vec1, vector_t const *vec2);
 
 #endif

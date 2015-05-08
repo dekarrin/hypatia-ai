@@ -73,6 +73,24 @@ typedef struct hyp_act
 } hyp_act_t;
 
 /**
+ * Allocates a hyp_act_t. This includes a potential allocation of a params_t;
+ * user is responsible for memory that is then allocated to values of the array
+ * of the params_t. See params.h for more info.
+ *
+ * param_count is set to the number of arguments that are to be in the params_t;
+ * if this is set to 0, the params_t will not be allocated, and will be left
+ * pointing to NULL.
+ */
+hyp_act_t *hyp_act_create(size_t param_count);
+
+/**
+ * Frees a hyp_act_t. This includes a potential free of a params_t; user is
+ * responsible for memory that was allocated to values of the array of the
+ * params_t. See params.h for info.
+ */
+void hyp_act_free(hyp_act_t *comp);
+
+/**
  * Heaviside step function. Parameters can modify boundary behavior, but by
  * default, if input is less than the threshold, outputs 0, and If input is
  * greater than or equal to the threshold, outputs 1. The default threshold is

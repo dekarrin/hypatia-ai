@@ -37,6 +37,27 @@
 
 #include <math.h>
 #include <stdbool.h>
+#include <stdlib.h>
+
+hyp_act_t *hyp_act_create(size_t param_count)
+{
+	hyp_act_t *comp = malloc(sizeof(hyp_act_t));
+	comp->params = NULL;
+	if (param_count > 0)
+	{
+		comp->params = hyp_params_create(param_count);
+	}
+	return comp;
+}
+
+void hyp_act_free(hyp_act_t *comp)
+{
+	if (comp != NULL)
+	{
+		hyp_params_free(comp->params);
+	}
+	free(comp);
+}
 
 double hyp_act_threshold(double input, params_t *params)
 {

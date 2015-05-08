@@ -7,7 +7,7 @@ AM_LDFLAGS=-static
 
 # define all libraries and their implementation files
 noinst_LTLIBRARIES=libvector.la libactivation.la libneuron.la libutil.la
-noinst_LTLIBRARIES=${noinst_LTLIBRARIES} libcombiner.la libparams.la
+noinst_LTLIBRARIES+=libcombiner.la libparams.la
 libvector_la_SOURCES=vector.c vector.h
 libvector_la_LIBADD=-lm
 libactivation_la_SOURCES=activation.c activation.h

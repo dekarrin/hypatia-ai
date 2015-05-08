@@ -42,8 +42,8 @@ void hyp_params_free(params_t *p)
 	if (p != NULL)
 	{
 		free(p->values);
-		free(p);
 	}
+	free(p);
 }
 
 bool hyp_params_bget(params_t const *params, size_t index, bool def)
@@ -82,14 +82,14 @@ double hyp_params_dget(params_t const *params, size_t index, double def)
 	}
 }
 
-static bool hyp_params_availiable(params_t const *params, size_t index)
+static bool hyp_params_available(params_t const *params, size_t index)
 {
 	bool avail = false;
 	if (params != NULL)
 	{
 		if (index < params->size)
 		{
-			if (params[index] != NULL)
+			if ((params->values[index]) != NULL)
 			{
 				avail = true;
 			}

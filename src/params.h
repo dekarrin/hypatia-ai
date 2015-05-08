@@ -95,7 +95,7 @@ bool hyp_params_bget(params_t const *params, size_t index, bool def);
 /**
  * Gets the specified index casted as an int.
  */
-int hyp_params_iget(params_t const *params, size_t index, bool def);
+int hyp_params_iget(params_t const *params, size_t index, int def);
 
 /**
  * Gets the specified index casted as a double.

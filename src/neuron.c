@@ -46,27 +46,14 @@ neuron_t *hyp_neuron_create_perceptron(size_t inputs, double learning_rate)
 {
 	neuron_t *pcpt = hyp_neuron_create(inputs, learning_rate);
 	pcpt->combiner = &hyp_comb_linear;
-	pcpt->activation = malloc(sizeof(hyp_act_t));
+	pcpt->activation = hyp_act_create(0);
 	pcpt->activation->func = &hyp_act_threshold;
-	pcpt->activation->params = NULL;
 	return pcpt;
 }
 
 void hyp_neuron_free(neuron_t *n)
 {
-	if (n->activation != NULL)
-	{
-		if (n->activation->params != NULL)
-		{
-			for (size_t i = 0; i < n->activation->params_count; i++)
-			{
-				void *ptr = n->activation->params[i];
-				free(ptr);
-			}
-			free(n->activation->params);
-		}
-		free(n->activation);
-	}
+	hyp_act_free(n->activation);
 	if (n->weights != NULL)
 	{
 		hyp_vec_free(n->weights);
@@ -87,9 +74,8 @@ void hyp_neuron_init(neuron_t *n)
 double hyp_neuron_fire(neuron_t const *n, vector_t const *inputs)
 {
 	double comb = n->combiner(inputs, n->weights);
-	void **params = n->activation->params;
-	double result = n->activation->func(comb + n->bias, params);
-	return result;
+	params_t *params = n->activation->params;
+	return n->activation->func(comb + n->bias, params);
 }
 
 #include <stdio.h>

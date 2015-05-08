@@ -76,6 +76,8 @@ neuron_t *hyp_neuron_create(size_t inputs, double learning_rate);
  * The notes on weight vector pointer memory meanagement in hyp_neuron_create
  * also apply to the neuron returned from this function.
  *
+ * The params_t struct in the hyp_act_t struct will be NULL.
+ *
  * learning_rate is how fast weight training compensates for error, and should
  * be greater than 0 and less than or equal to 1.
  */

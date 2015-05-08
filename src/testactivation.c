@@ -44,7 +44,7 @@ int main(int argc, char const **argv)
 
 	double slope = 1.5;
 	params_t *params = hyp_params_create(1);
-	p->values[0] = &slope;
+	params->values[0] = &slope;
 
 	// should be 0.5
 	double log_0 = hyp_act_logistic(0.0, NULL);

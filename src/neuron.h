@@ -76,12 +76,13 @@ neuron_t *hyp_neuron_create(size_t inputs, double learning_rate);
  * The notes on weight vector pointer memory meanagement in hyp_neuron_create
  * also apply to the neuron returned from this function.
  *
- * The params_t struct in the hyp_act_t struct will be NULL.
+ * The params_t struct in the hyp_act_t struct is set to the params arg.
  *
  * learning_rate is how fast weight training compensates for error, and should
  * be greater than 0 and less than or equal to 1.
  */
-neuron_t *hyp_neuron_create_perceptron(size_t inputs, double learning_rate);
+neuron_t *hyp_neuron_create_perceptron(size_t inputs, double learning_rate,
+  params_t *params);
 
 /**
  * Deallocates a neuron_t pointer, recursively freeing any memory used by
@@ -103,16 +104,25 @@ void hyp_neuron_free(neuron_t *n);
 void hyp_neuron_init(neuron_t *n);
 
 /**
- * Trains a neuron using the given training data. Training data consists of an
- * array of pointers to vectors of inputs as well as an array containing the
- * same number of expected output values. Each set of training data is applied
- * one time to the neuron, and weight training is applied for every set.
+ * Trains a neuron using a set of training data. Training data consists of a
+ * vector containing the input data as well as the expected output.
+ *
+ * TODO: This only works for perceptrons. Training algorighm should be
+ * generalized.
+ */
+void hyp_neuron_train(neuron_t *n, vector_t const *input, double expected);
+
+/**
+ * Trains a neuron using multiple sets of training data. Training data consists
+ * of an array of pointers to vectors of inputs as well as an array containing
+ * the same number of expected output values. Each set of training data is
+ * applied one time to the neuron, and weight training is applied for every set.
  *
  * TODO: This only works for perceptrons. Training algorithms should be
  * generalized.
  */
-void hyp_neuron_train(neuron_t *n, vector_t **inputs, double const *expected,
-  size_t size);
+void hyp_neuron_train_multi(neuron_t *n, vector_t **inputs,
+  double const *expected, size_t size);
 
 /**
  * Executes an input on a neuron and returns the result.

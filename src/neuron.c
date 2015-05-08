@@ -42,12 +42,14 @@ neuron_t *hyp_neuron_create(size_t inputs, double learning_rate)
 	return nrn;
 }
 
-neuron_t *hyp_neuron_create_perceptron(size_t inputs, double learning_rate)
+neuron_t *hyp_neuron_create_perceptron(size_t inputs, double learning_rate,
+  params_t *params)
 {
 	neuron_t *pcpt = hyp_neuron_create(inputs, learning_rate);
 	pcpt->combiner = &hyp_comb_linear;
 	pcpt->activation = hyp_act_create(0);
 	pcpt->activation->func = &hyp_act_threshold;
+	pcpt->activation->params = params;
 	return pcpt;
 }
 
@@ -78,24 +80,27 @@ double hyp_neuron_fire(neuron_t const *n, vector_t const *inputs)
 	return n->activation->func(comb + n->bias, params);
 }
 
-#include <stdio.h>
+void hyp_neuron_train(neuron_t *n, vector_t const *input, double expected)
+{
+	double actual = hyp_neuron_fire(n, input);
+	double err = expected - actual;
+	double *w = n->weights->values;
+	double *x = input->values;
+	for (size_t i = 0; i < n->weights->dim; i++)
+	{
+		w[i] += n->learn_rate * err * x[i];
+	}
+	n->bias += n->learn_rate * err;
+}
 
-void hyp_neuron_train(neuron_t *n, vector_t **inputs, double const *expected,
-  size_t size)
+void hyp_neuron_train_multi(neuron_t *n, vector_t **inputs,
+  double const *expected, size_t size)
 {
 	for (size_t i = 0; i < size; i++)
 	{
 		vector_t const *in = inputs[i];
 		double ex = expected[i];
-		double actual = hyp_neuron_fire(n, in);
-		double *weight_vals = n->weights->values;
-		double err = ex - actual;
-		for (size_t j = 0; j < n->weights->dim; j++)
-		{
-			weight_vals[j] += n->learn_rate * err * in->values[j];
-			printf("%d - ERR: %.5f, VAL: %.5f ADJ\n", j, err, in->values[j]);
-		}
-		n->bias += n->learn_rate * err;
+		hyp_neuron_train(n, in, ex);
 	}
 }
 

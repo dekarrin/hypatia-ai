@@ -22,20 +22,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "neuron.h"
+#include "testneuron.h"
 #include "vector.h"
+#include "params.h"
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define NAND_TRAINING_SIZE 4
+#define ITERATIONS 8
 
 int main(int argc, char const **argv)
 {
 	// ensure weight initialization is always the same
 	srand(256);
 
-	neuron_t *pcpt = hyp_neuron_create_perceptron(2, 0.2);
+	params_t *params = hyp_params_create(2);
+	bool thresh_up = false;
+	double thresh = 0.5;
+	params->values[0] = &thresh_up;
+	params->values[1] = &thresh;
+	neuron_t *pcpt = hyp_neuron_create_perceptron(2, 0.1, params);
 
 	printf("Perceptron\n");
 	printf("===========================\n");
@@ -49,6 +57,7 @@ int main(int argc, char const **argv)
 	printf("NAND Training\n");
 	printf("---------------------------\n");
 
+	
 	// create NAND training set
 	vector_t **inputs = malloc(sizeof(vector_t *) * NAND_TRAINING_SIZE);
 	inputs[0] = hyp_vec_create(2);
@@ -75,29 +84,43 @@ int main(int argc, char const **argv)
 	outputs[3] = 0;
 
 	hyp_neuron_init(pcpt);
+	pcpt->weights->values[0] = 0.1;
+	pcpt->weights->values[1] = 0.1;
+	pcpt->bias = 0.3;
 
-	printf("Initialization:\n");
-	for (size_t i = 0; i < pcpt->input_count; i++)
-	{
-		printf("w%02d: %.4f\n", i, pcpt->weights->values[i]);
-	}
-	printf("bias: %.4f\n", pcpt->bias);
-	printf("---------------------------\n");
+	iter_record_t **rs =
+	  hyp_testneuron_create_records(NAND_TRAINING_SIZE * ITERATIONS, 2);
 	// now train the neuron
 	int rep = 0;
 	do
 	{
-		hyp_neuron_train(pcpt, inputs, outputs, NAND_TRAINING_SIZE);
-		printf("Iteration #%d:\n", rep + 1);
-		for (size_t i = 0; i < pcpt->input_count; i++)
+		for (size_t i = 0; i < NAND_TRAINING_SIZE; i++)
 		{
-			printf("w%02d: %.4f\n", i, pcpt->weights->values[i]);
+			iter_record_t *rec = rs[rep + i];
+			vector_t const *input = inputs[i];
+			double expected = outputs[i];
+			rec->inputs->values[0] = input->values[0];
+			rec->inputs->values[1] = input->values[1];
+			rec->bias = pcpt->bias;
+			rec->expected = expected;
+			rec->initial_weights->values[0] =
+			  pcpt->weights->values[0];
+			rec->initial_weights->values[1] =
+			  pcpt->weights->values[1];
+
+			hyp_neuron_train(pcpt, input, expected);
+
+			rec->final_bias = pcpt->bias;
+			rec->final_weights->values[0] =
+			  pcpt->weights->values[0];
+			rec->final_weights->values[1] =
+			  pcpt->weights->values[1];
 		}
-		printf("b: %.4f\n", pcpt->bias);
-		printf("---------------------------\n");
-		rep += 1;
+		rep++;
 	}
-	while(rep < 2);
+	while(rep < ITERATIONS);
+
+	hyp_testneuron_print_records(rs, NAND_TRAINING_SIZE * ITERATIONS);
 
 	printf("\n");
 
@@ -115,6 +138,7 @@ int main(int argc, char const **argv)
 	free(inputs);
 	free(outputs);
 	hyp_neuron_free(pcpt);
+	hyp_testneuron_free_records(rs, NAND_TRAINING_SIZE * ITERATIONS);
 
 	// output results
 	printf("NAND Results\n");
@@ -127,3 +151,103 @@ int main(int argc, char const **argv)
 
 	return 0;
 }
+
+iter_record_t *hyp_testneuron_create_record(size_t inputs)
+{
+	iter_record_t *r = malloc(sizeof(iter_record_t));
+	r->inputs = hyp_vec_create(inputs);
+	r->initial_weights = hyp_vec_create(inputs);
+	r->final_weights = hyp_vec_create(inputs);
+	return r;
+}
+
+void hyp_testneuron_free_record(iter_record_t *r)
+{
+	hyp_vec_free(r->final_weights);
+	hyp_vec_free(r->initial_weights);
+	hyp_vec_free(r->inputs);
+	free(r);
+}
+
+iter_record_t **hyp_testneuron_create_records(size_t size, size_t inputs)
+{
+	iter_record_t **rs = malloc(sizeof(iter_record_t *) * size);
+	for (size_t i = 0; i < size; i++)
+	{
+		rs[i] = hyp_testneuron_create_record(inputs);	
+	}
+	return rs;
+}
+
+void hyp_testneuron_free_records(iter_record_t **rs, size_t size)
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		hyp_testneuron_free_record(rs[i]);
+	}
+	free(rs);
+}
+
+void hyp_testneuron_print_sep(size_t inputs)
+{
+	for (size_t i = 0; i < inputs * 3 + 4; i++)
+	{
+		printf(SEP_FMT);
+	}
+	printf(SEP_EDGE "\n");
+}
+
+void hyp_testneuron_print_title(size_t inputs)
+{
+	for (size_t i = 0; i < inputs + 1; i++)
+	{
+		printf(OUTPUT_EDGE " x%-6d ", i);
+	}
+	printf(OUTPUT_EDGE " z       ");
+	for (size_t i = 0; i < inputs + 1; i++)
+	{
+		printf(OUTPUT_EDGE " w%-6d ", i);
+	}
+	for (size_t i = 0; i < inputs + 1; i++)
+	{
+		printf(OUTPUT_EDGE " wf%-5d ", i);
+	}
+	printf(OUTPUT_EDGE "\n");
+}
+
+void hyp_testneuron_print_records(iter_record_t **rs, size_t size)
+{
+	size_t inputs = rs[0]->inputs->dim;
+	hyp_testneuron_print_sep(inputs);
+	hyp_testneuron_print_title(inputs);
+	for (size_t i = 0; i < size; i++)
+	{
+		if (i % NAND_TRAINING_SIZE == 0)
+		{
+			hyp_testneuron_print_sep(inputs);
+		}
+		hyp_testneuron_print_record(rs[i]);
+	}
+	hyp_testneuron_print_sep(inputs);
+}
+
+void hyp_testneuron_print_record(iter_record_t *r)
+{
+	printf(DATA_FMT, 1.0);
+	for (size_t i = 0; i < r->inputs->dim; i++)
+	{
+		printf(DATA_FMT, r->inputs->values[i]);
+	}
+	printf(DATA_FMT DATA_FMT, r->expected, r->bias);
+	for (size_t i = 0; i < r->initial_weights->dim; i++)
+	{
+		printf(DATA_FMT, r->initial_weights->values[i]);
+	}
+	printf(DATA_FMT, r->final_bias);
+	for (size_t i = 0; i < r->final_weights->dim; i++)
+	{
+		printf(DATA_FMT, r->final_weights->values[i]);
+	}
+	printf(OUTPUT_EDGE "\n");
+}
+

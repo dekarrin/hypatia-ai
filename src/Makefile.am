@@ -28,7 +28,7 @@ testutil_SOURCES=testutil.c
 testutil_LDADD=libutil.la
 testcombiner_SOURCES=testcombiner.c
 testcombiner_LDADD=libvector.la libcombiner.la
-testneuron_SOURCES=testneuron.c
+testneuron_SOURCES=testneuron.c testneuron.h
 testneuron_LDADD=libneuron.la
 # libs to link testmath with, if it were different than common:
 # testmath_LDADD=libsomelib.la ${LDADD} -lexternallib

@@ -60,6 +60,8 @@ int main(int argc, char const **argv)
 	// should be ~-0.986614
 	double tanh_n2_5 = hyp_act_tanh(-2.5, NULL);
 
+	hyp_params_free(params);
+
 	printf("Input : Output\n");
 	printf("\n");
 	printf("Threshold Function:\n");

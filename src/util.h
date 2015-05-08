@@ -26,6 +26,9 @@
 #ifndef HYPATIA_UTIL_H
 #define HYPATIA_UTIL_H
 
+/**
+ * Returns a random double in the range [low, high].
+ */
 double rand_range(double low, double high);
 
 #endif

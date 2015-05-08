@@ -36,16 +36,14 @@
  * local field, and thus additional bias is not introduced by the activation
  * function.
  *
- * The second parameter is an array of pointers containing any number of
- * additional parameters that are used for modifying the function itself.
- * Typically, these are some kind of transformation(s) to the function. For
- * functions that accept parameters, NULL may be passed to indicate that all
- * parameters should be set to their default values, otherwise any pointer in
- * the array that is set to NULL will indicate that the parameter associated
- * with that position is to revert to its default value. If NULL is not passed
- * in as this array, then the array must be a size that is at least equal to the
- * number of additional parameters. The parameters that are accepted vary; see
- * each function for more information on what it accepts.
+ * The second parameter is a params_t struct containing any number of additional
+ * parameters that are used for modifying the function itself. Typically, these
+ * apply some kind of transformation to the function. For functions that accept
+ * additional parameters, NULL may be passed to indicate that all parameters
+ * should be set to their default values, otherwise any value in the params_t
+ * that is set to NULL will indicate that the parameter associated with that
+ * position is to revert to its default value. The parameters that are accepted
+ * vary; see each function for more information on what it accepts.
  *
  * Each function uses a special notation to denote the possible output values,
  * known as the range. If the range interval is continuous, open-closed notation
@@ -58,30 +56,35 @@
  * then directly passed to the output of the neuron.
  */
 
+#include "params.h"
+
 #include <stddef.h>
 
 // A pointer to a raw activation function; that is, one without associated
 // parameters.
-typedef double (*hyp_act_raw_ptr)(double input, void **params);
+typedef double (*hyp_act_raw_ptr)(double input, params_t *params);
 
 // A composite struct that contains both an activation function pointer and its
 // additional parameters.
 typedef struct hyp_act
 {
 	hyp_act_raw_ptr func;
-	void **params;
-	size_t params_count;
+	params_t *params;
 } hyp_act_t;
 
 /**
- * Standard threshold function. If input is less than 0, outputs 0. If input is
- * greater than or equal to 0, outputs 1.
+ * Heaviside step function. Parameters can modify boundary behavior, but by
+ * default, if input is less than the threshold, outputs 0, and If input is
+ * greater than or equal to the threshold, outputs 1. The default threshold is
+ * 0.
  *
  * Output range: [0..1]
  *
- * This function does not accept additional parameters.
+ * This function accepts the following additional parameters:
+ * [0] (bool) - Whether to output 1 when input equals threshold (default: true)
+ * [1] (double) - Function threshold (default: 0)
  */
-double hyp_act_threshold(double input, void **params);
+double hyp_act_threshold(double input, params_t *params);
 
 /**
  * Returns the sign of the input. If input is less than 0, outputs -1. If input
@@ -91,7 +94,7 @@ double hyp_act_threshold(double input, void **params);
  *
  * This function does not accept additional parameters.
  */
-double hyp_act_signum(double input, void **params);
+double hyp_act_signum(double input, params_t *params);
 
 /**
  * A sigmoid function that follows the logistic curve.
@@ -99,9 +102,9 @@ double hyp_act_signum(double input, void **params);
  * Output range: (0, 1)
  *
  * This function accepts the following additional parameters:
- * [0] - k, the steepness of the curve (1 by default)
+ * [0] (double) - The steepness of the curve (default: 1)
  */
-double hyp_act_logistic(double input, void **params);
+double hyp_act_logistic(double input, params_t *params);
 
 /**
  * A sigmoid function similar to the logistic curve but extended such that
@@ -110,8 +113,8 @@ double hyp_act_logistic(double input, void **params);
  * Output range: (-1, 1)
  *
  * This function accepts the following additional parameters:
- * [0] k, the steepness of the curve (1 by default)
+ * [0] (double) - The steepness of the curve (default: 1)
  */
-double hyp_act_tanh(double input, void **params);
+double hyp_act_tanh(double input, params_t *params);
 
 #endif

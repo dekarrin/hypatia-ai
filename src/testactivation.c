@@ -42,20 +42,21 @@ int main(int argc, char const **argv)
 	// should be -1
 	double signum_n1 = hyp_act_signum(-1, NULL);
 
-
 	double slope = 1.5;
-	void *slopeptr = &slope;
+	params_t *params = hyp_params_create(1);
+	p->values[0] = &slope;
+
 	// should be 0.5
 	double log_0 = hyp_act_logistic(0.0, NULL);
 	// should be ~0.999972
-	double log_7 = hyp_act_logistic(7.0, &slopeptr);
+	double log_7 = hyp_act_logistic(7.0, params);
 	// should be ~0.0758581
 	double log_n2_5 = hyp_act_logistic(-2.5, NULL);
 
 	// should be 0
 	double tanh_0 = hyp_act_tanh(0.0, NULL);
 	// should be ~0.9999999999
-	double tanh_7 = hyp_act_tanh(7.0, &slopeptr);
+	double tanh_7 = hyp_act_tanh(7.0, params);
 	// should be ~-0.986614
 	double tanh_n2_5 = hyp_act_tanh(-2.5, NULL);
 

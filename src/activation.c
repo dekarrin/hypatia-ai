@@ -33,10 +33,12 @@
  */
 
 #include "activation.h"
+#include "params.h"
 
 #include <math.h>
+#include <stdbool.h>
 
-double hyp_act_threshold(double input, void **params)
+double hyp_act_threshold(double input, params_t *params)
 {
 	double out = 0;
 	if (input >= 0)
@@ -46,7 +48,7 @@ double hyp_act_threshold(double input, void **params)
 	return out;
 }
 
-double hyp_act_signum(double input, void **params)
+double hyp_act_signum(double input, params_t *params)
 {
 	double out = 0;
 	if (input > 0)
@@ -60,33 +62,15 @@ double hyp_act_signum(double input, void **params)
 	return out;
 }
 
-double hyp_act_logistic(double input, void **params)
+double hyp_act_logistic(double input, params_t *params)
 {
-	double steepness = 1.0;
-	if (params != NULL)
-	{
-		double const *ptr1 = (double const *)params[0];
-		if (ptr1 != NULL)
-		{
-			steepness = *ptr1;
-		}
-	}
-	double out = 1.0 / (1.0 + exp(-input * steepness));
-	return out;
+	double steepness = hyp_params_dget(params, 0, 1.0);
+	return 1.0 / (1.0 + exp(-input * steepness));
 }
 
-double hyp_act_tanh(double input, void **params)
+double hyp_act_tanh(double input, params_t *params)
 {
-	double steepness = 1.0;
-	if (params != NULL)
-	{
-		double const *ptr1 = (double const *)params[0];
-		if (ptr1 != NULL)
-		{
-			steepness = *ptr1;
-		}
-	}
-	double out = tanh(input * steepness);
-	return out;
+	double steepness = hyp_params_dget(params, 0, 1.0);
+	return tanh(input * steepness);
 }
 

@@ -28,12 +28,23 @@
 
 int main(int argc, char const **argv)
 {
+	bool up = false;
+	double thresh = 0.5;
+	params_t *th_params = hyp_params_create(2);
+	th_params->values[0] = &up;
+	th_params->values[1] = &thresh;
+
 	// should be 1
 	double thresh_0 = hyp_act_threshold(0, NULL);
 	// should be 1
 	double thresh_1 = hyp_act_threshold(1, NULL);
 	// should be 0
 	double thresh_n1 = hyp_act_threshold(-1, NULL);
+	// should be 0
+	double thresh_n0_5 = hyp_act_threshold(0.5, th_params);
+	th_params->values[0] = NULL;
+	// should be 1
+	double thresh_n0_5_u = hyp_act_threshold(0.5, th_params);
 	
 	// should be 0
 	double signum_0 = hyp_act_signum(0, NULL);
@@ -61,13 +72,16 @@ int main(int argc, char const **argv)
 	double tanh_n2_5 = hyp_act_tanh(-2.5, NULL);
 
 	hyp_params_free(params);
+	hyp_params_free(th_params);
 
 	printf("Input : Output\n");
 	printf("\n");
 	printf("Threshold Function:\n");
-	printf(" 0 :  %.6f\n", thresh_0);
-	printf(" 1 :  %.6f\n", thresh_1);
-	printf("-1 :  %.6f\n", thresh_n1);
+	printf("  0, t = 1.0, >= :  %.6f\n", thresh_0);
+	printf("  1, t = 1.0, >= :  %.6f\n", thresh_1);
+	printf(" -1, t = 1.0, >= :  %.6f\n", thresh_n1);
+	printf("0.5, t = 0.5, >  :  %.6f\n", thresh_n0_5);
+	printf("0.5, t = 0.5, >= :  %.6f\n", thresh_n0_5_u);
 	printf("\n");
 	printf("Signum Function:\n");
 	printf(" 0 :  %.6f\n", signum_0);

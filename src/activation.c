@@ -61,8 +61,10 @@ void hyp_act_free(hyp_act_t *comp)
 
 double hyp_act_threshold(double input, params_t *params)
 {
+	bool thresh_up = hyp_params_bget(params, 0, true);
+	double thresh = hyp_params_dget(params, 1, 0.0);
 	double out = 0;
-	if (input >= 0)
+	if (input > thresh || (input == thresh && thresh_up))
 	{
 		out = 1;
 	}

@@ -33,8 +33,8 @@ int main(int argc, char const **argv)
 {
 	srand(256);
 	neuron_t *pcpt = hyp_testneuron_make_neuron();
-	hyp_testneuron_trn_nand(pcpt, "NAND");
-	hyp_testneuron_print_params(pcpt);
+	hyp_testneuron_trn_nand(pcpt);
+	hyp_testneuron_print_params(pcpt, "NAND");
 	hyp_testneuron_test_nand(pcpt);
 	hyp_neuron_free(pcpt);
 	return 0;

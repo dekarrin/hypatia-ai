@@ -26,37 +26,19 @@
 #ifndef HYPATIA_TESTNEURON_H
 #define HYPATIA_TESTNEURON_H
 
-#define OUTPUT_EDGE "|"
-#define OUTPUT_MIDDLE " % 7.3f "
-#define SEP_EDGE "+"
-#define SEP_MIDDLE "---------"
-#define SEP_FMT SEP_EDGE SEP_MIDDLE
-#define DATA_FMT OUTPUT_EDGE OUTPUT_MIDDLE
-
 #include "neuron.h"
+#include "vector.h"
 
-#include <stddef.h>
+#define NAND_TRAINING_SIZE 4
+#define MAX_ITERS 10
 
-typedef struct iter_record
-{
-	vector_t *inputs;
-	double bias;
-	double expected;
-	vector_t *initial_weights;
-	double final_bias;
-	vector_t *final_weights;
-} iter_record_t;
-
-iter_record_t *hyp_testneuron_create_record(size_t inputs);
-void hyp_testneuron_free_record(iter_record_t *r);
-iter_record_t **hyp_testneuron_create_records(size_t size, size_t inputs);
-void hyp_testneuron_free_records(iter_record_t **rs, size_t size);
-void hyp_testneuron_print_record(iter_record_t *r);
-void hyp_testneuron_print_title(size_t inputs);
-void hyp_testneuron_print_sep(size_t inputs);
-void hyp_testneuron_print_records(iter_record_t **rs, size_t size);
-char *hyp_testneuron_output_fmt(const char *middle, const char *edge,
-  size_t inputs, char *buf);
+static neuron_t *hyp_testneuron_make_neuron();
+static void hyp_testneuron_print_params(neuron_t const *, char const *);
+static void hyp_testneuron_make_nand_trn_set(vector_t ***, double **);
+static void hyp_testneuron_trn_nand(neuron_t *);
+static void hyp_testneuron_free_nand_trn_set(vector_t **, double *);
+static void hyp_testneuron_test_nand(neuron_t *);
+static void hyp_testneuron_print_nand(double, double, double, double);
 
 #endif
 

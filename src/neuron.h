@@ -118,10 +118,34 @@ void hyp_neuron_train(neuron_t *n, vector_t const *input, double expected);
  * the same number of expected output values. Each set of training data is
  * applied one time to the neuron, and weight training is applied for every set.
  *
+ * Size is the number of training sets being passed in.
+ *
  * TODO: This only works for perceptrons. Training algorithms should be
  * generalized.
  */
 void hyp_neuron_train_multi(neuron_t *n, vector_t **inputs,
+  double const *expected, size_t size);
+
+/**
+ * Trains a neuron continuously until the neuron output converges with the
+ * expected output with iteration error less than the error threshold or the
+ * maximum number of training iterations is reached. One training iteration is
+ * defined as training with each set of input data one time.
+ *
+ * Size is the number of training sets passed in.
+ *
+ * TODO: This only works for perceptrons. Training algorithms should be
+ * generalized.
+ */
+void hyp_neuron_train_conv(neuron_t *n, vector_t **inputs,
+  double const *expected, size_t size, double err_thresh, size_t max_iters);
+
+/**
+ * Gets the iteration error for a particular group of training sets. The
+ * iteration error is defined as the average of magnitude of errors of each
+ * input set.
+ */
+double hyp_neuron_iter_error(neuron_t *n, vector_t **inputs,
   double const *expected, size_t size);
 
 /**
@@ -133,3 +157,4 @@ void hyp_neuron_train_multi(neuron_t *n, vector_t **inputs,
 double hyp_neuron_fire(neuron_t const *n, vector_t const *inputs);
 
 #endif
+

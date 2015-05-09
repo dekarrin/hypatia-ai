@@ -104,3 +104,30 @@ void hyp_neuron_train_multi(neuron_t *n, vector_t **inputs,
 	}
 }
 
+void hyp_neuron_train_conv(neuron_t *n, vector_t **inputs,
+  double const *expected, size_t size, double err_thresh, size_t max_iters)
+{
+	size_t iters = 0;
+	double err = 0.0;
+	do
+	{
+		hyp_neuron_train_multi(n, inputs, expected, size);
+		err = hyp_neuron_iter_error(n, inputs, expected, size);
+		iters++;
+	} while (err >= err_thresh && iters < max_iters);
+}
+
+double hyp_neuron_iter_error(neuron_t *n, vector_t **inputs,
+  double const *expected, size_t size)
+{
+	double sum = 0;
+	for (size_t i = 0; i < size; i ++)
+	{
+		double actual = hyp_neuron_fire(n, inputs[i]);
+		double err = expected[i] - actual;
+		err *= (err < 0 ? -1 : 1);
+		sum += err;
+	}
+	return sum / size;
+}
+

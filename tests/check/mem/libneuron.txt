@@ -1,0 +1,30 @@
+==20103== Memcheck, a memory error detector
+==20103== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==20103== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==20103== Command: ./testneuron
+==20103== 
+NAND Perceptron
+===========================
+
+Parameters
+---------------------------
+Inputs: 2
+Alpha (Learning Rate): 0.10
+---------------------------
+
+Results
+---------------------------
+(0, 0) => 1.00
+(1, 0) => 1.00
+(0, 1) => 1.00
+(1, 1) => 0.00
+---------------------------
+==20103== 
+==20103== HEAP SUMMARY:
+==20103==     in use at exit: 0 bytes in 0 blocks
+==20103==   total heap usage: 25 allocs, 25 frees, 336 bytes allocated
+==20103== 
+==20103== All heap blocks were freed -- no leaks are possible
+==20103== 
+==20103== For counts of detected and suppressed errors, rerun with: -v
+==20103== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 13 from 6)

@@ -34,17 +34,19 @@ typedef struct hyp_network
 {
 	size_t inputs_size;
 	size_t outputs_size;
+	size_t neurons_count;
+	size_t neurons_size;
 	hyp_net_node **inputs;
-	hyp_net_node **hidden;
+	hyp_net_node **neurons;
 	hyp_net_node **outputs;
 } hyp_network_t;
 
 /**
  * Allocates a new artificial neural network. The network will have the
- * specified number of output and input nodes, and will have space for the given
- * number of neurons in the hidden layer.
+ * specified number outputs and inputs, and will have space for the given number
+ * of neurons.
  */
-hyp_network_t *hyp_net_create(size_t inputs, size_t hidden, size_t outputs);
+hyp_network_t *hyp_net_create(size_t inputs, size_t neurons, size_t outputs);
 
 /**
  * Free memory in an artificial neural network. All neurons contained in the
@@ -97,8 +99,9 @@ void hyp_net_link_input(hyp_network_t *net, size_t in_id, size_t n2);
 void hyp_net_link_output(hyp_network_t *net, size_t n1, size_t out_id);
 
 /**
- * 
+ * Gets the output of the network to a specified input.
  */
+double hyp_net_output(hyp_network_t *net, double *inputs, size_t inputs_size);
 
 #endif
 

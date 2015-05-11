@@ -25,4 +25,15 @@
 
 #include "network.h"
 
+typedef struct hyp_net_node
+{
+	size_t inputs_size
+	size_t outputs_size;
+	hyp_net_node_t **inputs;
+	hyp_net_node_t **outputs;
+	// if neuron is NULL, a node will simply pass its first input directly
+	// to its output.
+	neuron_t *neuron;
+} hyp_net_node_t;
+
 

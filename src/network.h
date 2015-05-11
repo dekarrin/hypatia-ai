@@ -23,10 +23,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HYPATIA_ANN_H
-#define HYPATIA_ANN_H
+#ifndef HYPATIA_NETWORK_H
+#define HYPATIA_NETWORK_H
 
+#include "neuron.h"
 
+typedef struct hyp_net_node
+{
+	
+} hyp_net_node_t;
+
+typedef struct hyp_network
+{
+	size_t inputs;
+	size_t outputs;
+	
+} hyp_network_t;
 
 #endif
 
